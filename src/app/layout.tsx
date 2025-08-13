@@ -1,8 +1,6 @@
 import { QueryProvider } from "./(providers)/query-client";
 import "./globals.css";
-import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Todo" };
 
 export default function RootLayout({
   children,
@@ -12,8 +10,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <QueryProvider>
-        <body className="min-h-dvh bg-gray-50 text-gray-900 antialiased">
-          <div className="mx-auto w-full max-w-xl p-6">{children}</div>
+        <body className="min-h-screen w-full bg-gray-50 text-gray-900 antialiased">
+          <div className="mx-auto max-w-5xl w-full h-full">{children}</div>
         </body>
       </QueryProvider>
     </html>
