@@ -1,11 +1,14 @@
-import { useState } from "react";
-
-type Todo = { id: string; title: string; done: boolean };
+import { ProductsList } from "@/features/products/ui/products-list";
+import { Product } from "../../prisma/generated";
+import { ProductsItem } from "@/features/products/ui/products-item";
 
 export default function Page() {
   return (
     <main>
-      <h1>Test 1</h1>
+      <ProductsList<Product>
+        items={[]}
+        renderItem={(item) => <ProductsItem key={item.id} product={item} />}
+      />
     </main>
   );
 }
