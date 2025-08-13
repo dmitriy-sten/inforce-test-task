@@ -30,8 +30,8 @@ export const ProductsItem: React.FC<Props> = ({
       />
       <div className="px-2">
         <h2 className="text-x font-bold truncate">{product.name}</h2>
-        <p>{product.count}</p>
-        <p>{product.weight}</p>
+        <p className="text-neutral-500">{product.count}</p>
+        <p className="text-neutral-500">{product.weight}</p>
       </div>
 
       <Button

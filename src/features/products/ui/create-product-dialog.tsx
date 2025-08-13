@@ -20,7 +20,7 @@ interface Props {
 }
 
 export const CreateProductDialog: React.FC<Props> = ({ className }) => {
-  const { mutate, isPending } = useProductsCreate();
+  const { mutate, isPending, isSuccess } = useProductsCreate();
 
   const [formData, setFormData] = useState<CreateProductDTO>({
     name: "",
@@ -43,17 +43,28 @@ export const CreateProductDialog: React.FC<Props> = ({ className }) => {
     key: K,
     value: CreateProductDTO["size"][K]
   ) => {
-    if (!/^\d*$/.test(value as string)) return;
+    if (!/^\d*$/.test(value)) return;
     setFormData((prev) => ({
       ...prev,
       size: { ...prev.size, [key]: value },
     }));
   };
 
-  const handleMutation = () => mutate(formData);
+  const handleMutation = () =>
+    mutate(formData, {
+      onSuccess: () => {
+        setFormData({
+          name: "",
+          count: "",
+          weight: "",
+          imageUrl: "",
+          size: { height: 0, width: 0 },
+        });
+      },
+    });
 
   return (
-    <Dialog>
+    <Dialog >
       <DialogTrigger>
         <Card className="cursor-pointer size-[70px] flex items-center justify-center rounded-full hover:bg-neutral-200 transition-all transition-300">
           <Plus />
@@ -83,7 +94,7 @@ export const CreateProductDialog: React.FC<Props> = ({ className }) => {
         <Input
           value={formData.imageUrl}
           onChange={(e) => handleChange("imageUrl", e.target.value)}
-          placeholder="Image..."
+          placeholder="Image URL..."
         />
 
         <div className="flex gap-2">
